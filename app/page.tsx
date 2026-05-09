@@ -164,6 +164,13 @@ export default function Home() {
       <LoadingVeil loaded={loaded} />
       <Atmosphere particles={particleMarkup} />
 
+      <a
+        className="fixed left-5 top-5 z-50 border border-silver/20 bg-night/50 px-4 py-2 font-mono text-[0.58rem] text-silver/70 backdrop-blur-md transition hover:border-silver/45 hover:text-silver focus:outline-none focus:ring-1 focus:ring-silver/50"
+        href="/night-archive"
+      >
+        night archive
+      </a>
+
       <button
         className="fixed right-5 top-5 z-50 border border-silver/20 bg-night/50 px-4 py-2 font-mono text-[0.58rem] text-silver/70 backdrop-blur-md transition hover:border-silver/45 hover:text-silver focus:outline-none focus:ring-1 focus:ring-silver/50"
         type="button"
