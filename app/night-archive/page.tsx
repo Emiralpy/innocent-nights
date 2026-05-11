@@ -119,7 +119,14 @@ export default function NightArchivePage() {
         transition={{ duration: 0.85, ease: "easeInOut" }}
       >
         <div className="text-center">
-          <p className="font-editorial text-sm text-silver/38">innocent nights™</p>
+          <Image
+            src="/assets/brand/innocent-nights-wordmark.png"
+            alt="innocent nights wordmark"
+            width={3054}
+            height={647}
+            className="mx-auto h-auto w-44 opacity-[0.54]"
+            priority
+          />
           <motion.p
             className="mt-5 font-display text-5xl text-silver sm:text-7xl"
             initial={{ opacity: 0, filter: "blur(18px)", y: 18 }}
@@ -138,10 +145,16 @@ export default function NightArchivePage() {
       </div>
 
       <a
-        className="fixed left-5 top-5 z-50 border border-silver/14 bg-night/44 px-4 py-2 font-mono text-[0.58rem] text-silver/62 backdrop-blur-md transition hover:border-silver/38 hover:text-silver"
+        className="fixed left-5 top-5 z-50 border border-silver/14 bg-night/44 px-4 py-2 backdrop-blur-md transition hover:border-silver/38 hover:text-silver"
         href="/"
       >
-        innocent nights™
+        <Image
+          src="/assets/brand/innocent-nights-wordmark.png"
+          alt="innocent nights wordmark"
+          width={3054}
+          height={647}
+          className="h-auto w-28 opacity-[0.72]"
+        />
       </a>
 
       <section className="relative grid min-h-[100svh] place-items-center overflow-hidden px-5 py-24">

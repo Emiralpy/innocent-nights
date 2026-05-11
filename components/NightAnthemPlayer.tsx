@@ -160,7 +160,7 @@ export default function NightAnthemPlayer() {
     >
       <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full border border-silver/22 bg-[radial-gradient(circle_at_35%_20%,rgba(184,184,184,0.22),rgba(13,13,13,0.42)_42%,rgba(13,13,13,0.92))] shadow-[inset_0_1px_0_rgba(184,184,184,0.22)]">
         <motion.span
-          className="absolute inset-0 rounded-full bg-[conic-gradient(from_110deg,transparent,rgba(184,184,184,0.5),transparent,rgba(175,195,214,0.18),transparent)] opacity-55 blur-[0.5px]"
+          className="absolute inset-0 rounded-full bg-[conic-gradient(from_110deg,transparent,rgba(184,184,184,0.5),transparent,rgba(175,195,214,0.18),transparent)] opacity-[0.55] blur-[0.5px]"
           animate={isPlaying ? { rotate: 360 } : { rotate: 0 }}
           transition={isPlaying ? { duration: 24, repeat: Infinity, ease: "linear" } : { duration: 0.6 }}
         />
@@ -170,12 +170,12 @@ export default function NightAnthemPlayer() {
           transition={isPlaying ? { duration: 2.8, repeat: Infinity, ease: "easeInOut" } : { duration: 0.5 }}
         />
         <Image
-          src="/assets/dagger-mark.png"
-          alt=""
-          width={30}
-          height={72}
+          src="/assets/brand/innocent-dagger.png"
+          alt="innocent dagger symbol"
+          width={1412}
+          height={2116}
           className={`relative z-10 h-8 w-auto object-contain transition duration-500 ${
-            isPlaying ? "opacity-90 drop-shadow-[0_0_12px_rgba(184,184,184,0.28)]" : "opacity-48"
+            isPlaying ? "opacity-90 drop-shadow-[0_0_12px_rgba(184,184,184,0.28)]" : "opacity-[0.48]"
           }`}
         />
       </span>

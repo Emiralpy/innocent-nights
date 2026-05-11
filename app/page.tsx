@@ -130,7 +130,7 @@ export default function Home() {
       </a>
 
       <section className="relative grid min-h-[100svh] place-items-center overflow-hidden px-5 py-20">
-        <div className="absolute inset-0 bg-[url('/assets/dagger-mark.png')] bg-contain bg-center bg-no-repeat opacity-[0.055] blur-[1px]" />
+        <div className="absolute inset-0 bg-[url('/assets/brand/innocent-dagger.png')] bg-contain bg-center bg-no-repeat opacity-[0.045] blur-[1px]" />
         <div className="absolute inset-0 film-scanlines opacity-[0.08]" />
         <motion.div
           className="absolute left-1/2 top-1/2 h-[44rem] w-[44rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-silver/[0.035] blur-3xl"
@@ -146,14 +146,14 @@ export default function Home() {
           animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           transition={{ duration: 1.4, delay: 1.15, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="relative w-full max-w-[980px] overflow-hidden">
+          <div className="relative h-[52svh] min-h-[330px] w-full max-w-[1180px] overflow-visible sm:h-[66svh] sm:min-h-[520px]">
             <Image
-              src="/assets/hero-logo.png"
-              alt="innocent nights dagger logo"
-              width={1100}
-              height={360}
+              src="/assets/brand/innocent-nights-main-logo.png"
+              alt="innocent nights main logo"
+              fill
+              sizes="(max-width: 768px) 92vw, 1180px"
               priority
-              className="relative z-10 h-auto w-full object-contain opacity-95 drop-shadow-[0_0_42px_rgba(184,184,184,0.10)]"
+              className="relative z-10 object-contain opacity-95 drop-shadow-[0_0_42px_rgba(184,184,184,0.10)]"
             />
             <div className="absolute inset-y-0 -left-1/3 z-20 w-1/2 animate-shimmer bg-gradient-to-r from-transparent via-silver/25 to-transparent blur-xl" />
           </div>
@@ -222,7 +222,13 @@ export default function Home() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1.2 }}
         >
-          <Image src="/assets/dagger-mark.png" alt="" width={170} height={410} className="h-auto w-full" />
+          <Image
+            src="/assets/brand/innocent-dagger.png"
+            alt="innocent dagger symbol"
+            width={1412}
+            height={2116}
+            className="h-auto w-full"
+          />
         </motion.div>
 
         <Reveal className="mx-auto max-w-4xl text-center">
@@ -250,7 +256,7 @@ export default function Home() {
               alt="innocent nights denim archive"
               width={1402}
               height={1122}
-              className="h-full min-h-[440px] w-full object-cover opacity-70 saturate-[0.72] transition duration-1000 hover:scale-[1.025] hover:opacity-85"
+              className="h-full min-h-[440px] w-full object-cover opacity-70 saturate-[0.72] transition duration-1000 hover:scale-[1.025] hover:opacity-[0.85]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-night via-night/10 to-night/35" />
             <div className="absolute inset-0 film-scanlines opacity-[0.07]" />
@@ -308,7 +314,13 @@ export default function Home() {
       <footer className="relative px-5 pb-12 pt-4">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 border-t border-silver/10 pt-8 font-mono text-[0.58rem] text-silver/38 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p>innocent nights™</p>
+            <Image
+              src="/assets/brand/innocent-nights-wordmark.png"
+              alt="innocent nights wordmark"
+              width={3054}
+              height={647}
+              className="h-auto w-40 opacity-70"
+            />
             <p className="mt-2 text-silver/26">manifest desire.</p>
           </div>
           <div className="flex gap-6">
@@ -351,14 +363,21 @@ function LoadingVeil({ loaded }: { loaded: boolean }) {
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
       >
         <Image
-          src="/assets/dagger-mark.png"
-          alt=""
-          width={170}
-          height={410}
-          className="mx-auto h-36 w-auto opacity-[0.72]"
+          src="/assets/brand/innocent-dagger.png"
+          alt="innocent dagger symbol"
+          width={1412}
+          height={2116}
+          className="mx-auto h-40 w-auto opacity-[0.72]"
           priority
         />
-        <p className="mt-6 font-display text-4xl text-silver chrome-text">innocent nights™</p>
+        <Image
+          src="/assets/brand/innocent-nights-wordmark.png"
+          alt="innocent nights wordmark"
+          width={3054}
+          height={647}
+          className="mx-auto mt-7 h-auto w-64 opacity-[0.82]"
+          priority
+        />
         <p className="mt-4 font-mono text-[0.58rem] text-silver/42">manifest desire.</p>
       </motion.div>
     </motion.div>
@@ -418,10 +437,10 @@ function ChapterCard({
               style={{ backgroundColor: chapter.glow }}
             />
             <Image
-              src="/assets/dagger-mark.png"
-              alt=""
-              width={170}
-              height={410}
+              src="/assets/brand/innocent-dagger.png"
+              alt="innocent dagger symbol"
+              width={1412}
+              height={2116}
               className="absolute left-1/2 top-1/2 h-32 w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.48] mix-blend-screen"
             />
           </div>
