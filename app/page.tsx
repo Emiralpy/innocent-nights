@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 const palette = {
@@ -52,12 +52,8 @@ const particles = Array.from({ length: 34 }, (_, index) => ({
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
-  const [audioOn, setAudioOn] = useState(false);
   const [signed, setSigned] = useState(false);
   const [cursor, setCursor] = useState({ x: 50, y: 18 });
-  const audioRef = useRef<AudioContext | null>(null);
-  const gainRef = useRef<GainNode | null>(null);
-  const oscillatorsRef = useRef<OscillatorNode[]>([]);
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 80, damping: 28 });
   const logoY = useTransform(smoothProgress, [0, 0.35], [0, 86]);
@@ -98,49 +94,11 @@ export default function Home() {
     return () => window.clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    return () => {
-      oscillatorsRef.current.forEach((oscillator) => oscillator.stop());
-      audioRef.current?.close();
-    };
-  }, []);
-
   function updateCursor(event: React.MouseEvent<HTMLElement>) {
     setCursor({
       x: (event.clientX / window.innerWidth) * 100,
       y: (event.clientY / window.innerHeight) * 100
     });
-  }
-
-  async function toggleAudio() {
-    if (!audioRef.current) {
-      const AudioCtor = window.AudioContext || window.webkitAudioContext;
-      const context = new AudioCtor();
-      const gain = context.createGain();
-      const low = context.createOscillator();
-      const high = context.createOscillator();
-
-      low.type = "sine";
-      high.type = "triangle";
-      low.frequency.value = 48;
-      high.frequency.value = 96;
-      gain.gain.value = 0.0001;
-
-      low.connect(gain);
-      high.connect(gain);
-      gain.connect(context.destination);
-      low.start();
-      high.start();
-
-      audioRef.current = context;
-      gainRef.current = gain;
-      oscillatorsRef.current = [low, high];
-    }
-
-    await audioRef.current.resume();
-    const next = !audioOn;
-    gainRef.current?.gain.setTargetAtTime(next ? 0.018 : 0.0001, audioRef.current.currentTime, 0.08);
-    setAudioOn(next);
   }
 
   function submitEmail(event: FormEvent<HTMLFormElement>) {
@@ -170,15 +128,6 @@ export default function Home() {
       >
         night archive
       </a>
-
-      <button
-        className="fixed right-5 top-5 z-50 border border-silver/20 bg-night/50 px-4 py-2 font-mono text-[0.58rem] text-silver/70 backdrop-blur-md transition hover:border-silver/45 hover:text-silver focus:outline-none focus:ring-1 focus:ring-silver/50"
-        type="button"
-        aria-label="toggle ambient sound"
-        onClick={toggleAudio}
-      >
-        sound {audioOn ? "on" : "off"}
-      </button>
 
       <section className="relative grid min-h-[100svh] place-items-center overflow-hidden px-5 py-20">
         <div className="absolute inset-0 bg-[url('/assets/dagger-mark.png')] bg-contain bg-center bg-no-repeat opacity-[0.055] blur-[1px]" />
@@ -486,10 +435,4 @@ function ChapterCard({
       </div>
     </motion.article>
   );
-}
-
-declare global {
-  interface Window {
-    webkitAudioContext: typeof AudioContext;
-  }
 }

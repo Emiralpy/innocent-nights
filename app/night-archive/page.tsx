@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 const palette = {
@@ -73,10 +73,6 @@ const smoke = Array.from({ length: 18 }, (_, index) => ({
 
 export default function NightArchivePage() {
   const [loaded, setLoaded] = useState(false);
-  const [soundOn, setSoundOn] = useState(false);
-  const audioRef = useRef<AudioContext | null>(null);
-  const gainRef = useRef<GainNode | null>(null);
-  const nodesRef = useRef<OscillatorNode[]>([]);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 72, damping: 26 });
   const heroY = useTransform(progress, [0, 0.25], [0, 120]);
@@ -108,44 +104,6 @@ export default function NightArchivePage() {
     const timer = window.setTimeout(() => setLoaded(true), 1200);
     return () => window.clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    return () => {
-      nodesRef.current.forEach((node) => node.stop());
-      audioRef.current?.close();
-    };
-  }, []);
-
-  async function toggleSound() {
-    if (!audioRef.current) {
-      const AudioCtor = window.AudioContext || window.webkitAudioContext;
-      const context = new AudioCtor();
-      const gain = context.createGain();
-      const idle = context.createOscillator();
-      const city = context.createOscillator();
-
-      idle.type = "sawtooth";
-      city.type = "sine";
-      idle.frequency.value = 36;
-      city.frequency.value = 58;
-      gain.gain.value = 0.0001;
-
-      idle.connect(gain);
-      city.connect(gain);
-      gain.connect(context.destination);
-      idle.start();
-      city.start();
-
-      audioRef.current = context;
-      gainRef.current = gain;
-      nodesRef.current = [idle, city];
-    }
-
-    await audioRef.current.resume();
-    const next = !soundOn;
-    gainRef.current?.gain.setTargetAtTime(next ? 0.014 : 0.0001, audioRef.current.currentTime, 0.12);
-    setSoundOn(next);
-  }
 
   return (
     <main className="normal-case relative isolate min-h-screen overflow-hidden bg-night text-silver">
@@ -185,15 +143,6 @@ export default function NightArchivePage() {
       >
         innocent nights™
       </a>
-
-      <button
-        className="fixed right-5 top-5 z-50 border border-silver/14 bg-night/44 px-4 py-2 font-mono text-[0.58rem] text-silver/62 backdrop-blur-md transition hover:border-silver/38 hover:text-silver focus:outline-none focus:ring-1 focus:ring-silver/50"
-        type="button"
-        onClick={toggleSound}
-        aria-label="toggle ambient motorcycle sound"
-      >
-        sound {soundOn ? "on" : "off"}
-      </button>
 
       <section className="relative grid min-h-[100svh] place-items-center overflow-hidden px-5 py-24">
         <motion.div
@@ -378,10 +327,4 @@ function Reveal({
       {children}
     </motion.div>
   );
-}
-
-declare global {
-  interface Window {
-    webkitAudioContext: typeof AudioContext;
-  }
 }
